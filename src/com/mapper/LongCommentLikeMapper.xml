@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bean.dao.LongCommentLikeMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.model.LongCommentLike" >
+    <id column="longcommentsLikeID" property="longcommentslikeid" jdbcType="VARCHAR" />
+    <result column="longcommentsID" property="longcommentsid" jdbcType="VARCHAR" />
+    <result column="userID" property="userid" jdbcType="VARCHAR" />
+    <result column="LClikeORnot" property="lclikeornot" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    longcommentsLikeID, longcommentsID, userID, LClikeORnot
+  </sql>
+  
+  <select id="exist" resultMap="BaseResultMap">
+  	select * from longcommentslike where longcommentsID=#{0} and userID=#{1}
+  </select>
+  
+  <select id="getLikeNum" resultType="java.lang.Integer">
+  	select count(*) from longcommentslike where longcommentsID=#{0} and LClikeORnot=1
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from longcommentslike
+    where longcommentsLikeID = #{longcommentslikeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from longcommentslike
+    where longcommentsLikeID = #{longcommentslikeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.model.LongCommentLike" >
+    insert into longcommentslike (longcommentsLikeID, longcommentsID, 
+      userID, LClikeORnot)
+    values (#{longcommentslikeid,jdbcType=VARCHAR}, #{longcommentsid,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=VARCHAR}, #{lclikeornot,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.model.LongCommentLike" >
+    insert into longcommentslike
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="longcommentslikeid != null" >
+        longcommentsLikeID,
+      </if>
+      <if test="longcommentsid != null" >
+        longcommentsID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="lclikeornot != null" >
+        LClikeORnot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="longcommentslikeid != null" >
+        #{longcommentslikeid,jdbcType=VARCHAR},
+      </if>
+      <if test="longcommentsid != null" >
+        #{longcommentsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="lclikeornot != null" >
+        #{lclikeornot,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.model.LongCommentLike" >
+    update longcommentslike
+    <set >
+      <if test="longcommentsid != null" >
+        longcommentsID = #{longcommentsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="lclikeornot != null" >
+        LClikeORnot = #{lclikeornot,jdbcType=BIT},
+      </if>
+    </set>
+    where longcommentsLikeID = #{longcommentslikeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.model.LongCommentLike" >
+    update longcommentslike
+    set longcommentsID = #{longcommentsid,jdbcType=VARCHAR},
+      userID = #{userid,jdbcType=VARCHAR},
+      LClikeORnot = #{lclikeornot,jdbcType=BIT}
+    where longcommentsLikeID = #{longcommentslikeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

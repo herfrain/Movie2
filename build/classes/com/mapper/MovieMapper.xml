@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bean.dao.MovieMapper">
+	<resultMap id="BaseResultMap" type="com.bean.model.Movie">
+		<id column="movieID" property="movieid" jdbcType="VARCHAR" />
+		<result column="userID" property="userid" jdbcType="VARCHAR" />
+		<result column="movieName" property="moviename"
+			jdbcType="VARCHAR" />
+		<result column="movieIntroduction" property="movieintroduction"
+			jdbcType="VARCHAR" />
+		<result column="movieType" property="movietype"
+			jdbcType="VARCHAR" />
+		<result column="movieLike" property="movielike"
+			jdbcType="INTEGER" />
+		<result column="movieScore" property="moviescore"
+			jdbcType="DOUBLE" />
+		<result column="movieWatch" property="moviewatch"
+			jdbcType="INTEGER" />
+		
+		
+		<result column="movieUpdateDate" property="movieupdatedate"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		movieID, userID, movieName, movieIntroduction, movieType,
+		movieLike,
+		movieScore,
+		movieWatch, 
+		movieUpdateDate
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from movie
+		where movieID = #{movieid,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from movie
+		where movieID = #{movieid,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.bean.model.Movie">
+		insert into movie (movieID,
+		userID, movieName,
+		movieIntroduction, movieType, movieLike,
+		movieScore,
+		movieWatch,  movieUpdateDate)
+		values
+		(#{movieid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR},
+		#{moviename,jdbcType=VARCHAR},
+		#{movieintroduction,jdbcType=VARCHAR},
+		#{movietype,jdbcType=VARCHAR}, #{movielike,jdbcType=INTEGER},
+		#{moviescore,jdbcType=DOUBLE}, #{moviewatch,jdbcType=INTEGER},
+		
+		#{movieupdatedate,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.bean.model.Movie">
+		insert into movie
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="movieid != null">
+				movieID,
+			</if>
+			<if test="userid != null">
+				userID,
+			</if>
+			<if test="moviename != null">
+				movieName,
+			</if>
+			<if test="movieintroduction != null">
+				movieIntroduction,
+			</if>
+			<if test="movietype != null">
+				movieType,
+			</if>
+			<if test="movielike != null">
+				movieLike,
+			</if>
+			<if test="moviescore != null">
+				movieScore,
+			</if>
+			<if test="moviewatch != null">
+				movieWatch,
+			</if>
+			
+			
+			<if test="movieupdatedate != null">
+				movieUpdateDate,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="movieid != null">
+				#{movieid,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="moviename != null">
+				#{moviename,jdbcType=VARCHAR},
+			</if>
+			<if test="movieintroduction != null">
+				#{movieintroduction,jdbcType=VARCHAR},
+			</if>
+			<if test="movietype != null">
+				#{movietype,jdbcType=VARCHAR},
+			</if>
+			<if test="movielike != null">
+				#{movielike,jdbcType=INTEGER},
+			</if>
+			<if test="moviescore != null">
+				#{moviescore,jdbcType=DOUBLE},
+			</if>
+			<if test="moviewatch != null">
+				#{moviewatch,jdbcType=INTEGER},
+			</if>
+			
+			<if test="movieupdatedate != null">
+				#{movieupdatedate,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.bean.model.Movie">
+		update movie
+		<set>
+			<if test="userid != null">
+				userID = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="moviename != null">
+				movieName = #{moviename,jdbcType=VARCHAR},
+			</if>
+			<if test="movieintroduction != null">
+				movieIntroduction =
+				#{movieintroduction,jdbcType=VARCHAR},
+			</if>
+			<if test="movietype != null">
+				movieType = #{movietype,jdbcType=VARCHAR},
+			</if>
+			<if test="movielike != null">
+				movieLike = #{movielike,jdbcType=INTEGER},
+			</if>
+			<if test="moviescore != null">
+				movieScore = #{moviescore,jdbcType=DOUBLE},
+			</if>
+			<if test="moviewatch != null">
+				movieWatch = #{moviewatch,jdbcType=INTEGER},
+			</if>
+			
+			<if test="movieupdatedate != null">
+				movieUpdateDate = #{movieupdatedate,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where movieID = #{movieid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.bean.model.Movie">
+		update movie
+		set userID = #{userid,jdbcType=VARCHAR},
+		movieName = #{moviename,jdbcType=VARCHAR},
+		movieIntroduction =
+		#{movieintroduction,jdbcType=VARCHAR},
+		movieType =
+		#{movietype,jdbcType=VARCHAR},
+		movieLike =
+		#{movielike,jdbcType=INTEGER},
+		movieScore =
+		#{moviescore,jdbcType=DOUBLE},
+		movieWatch =
+		#{moviewatch,jdbcType=INTEGER},
+		
+		movieUpdateDate =
+		#{movieupdatedate,jdbcType=VARCHAR}
+		where movieID =
+		#{movieid,jdbcType=VARCHAR}
+	</update>
+
+	<!-- NEW -->
+	<select id="selectWithOrder" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from movie
+		order by
+		<choose>
+			<when test="orderTable == null">
+				movieID
+			</when>
+			<otherwise>
+				${orderTable}
+			</otherwise>
+		</choose>
+		<if test="isDESC">
+			DESC
+		</if>
+		<if test="num != null">
+			limit ${num}
+		</if>
+	</select>
+
+	<select id="selectSingleCol" resultType="java.lang.String">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<choose>
+			<when test="col != null">
+				${col}
+			</when>
+			<otherwise>
+				movieID
+			</otherwise>
+		</choose>
+		from movie
+		<if test="num != null">
+			limit ${num}
+		</if>
+	</select>
+
+	<select id="selectWithWhereAndOrder" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from movie
+		<if test="col != null">
+			where ${col} = #{eqCol}
+		</if>
+		<if test="orderCol != null">
+			order by ${orderCol}
+		</if>
+		<if test="isDESC">
+			DESC
+		</if>
+		<if test="num != null">
+			limit ${num}
+		</if>
+	</select>
+
+	<select id="search" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from movie
+		<if test="keyword != null">
+			where movieName like '%${keyword}%' or userID like '%${keyword}%'
+		</if>
+	</select>
+	
+	<!-- new2 -->
+	
+	<select id="selectWithUser" resultMap="BaseResultMap"
+			parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from movie
+		<if test="userid != null">
+			where userID = #{userid,jdbcType=VARCHAR}
+		</if>
+	</select>
+	
+	<select id="selectAll" resultMap="BaseResultMap">
+		select * from movie
+	</select>
+	
+	
+</mapper>

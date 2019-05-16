@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bean.dao.UserMovieMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.model.UserMovie" >
+    <result column="userID" property="userid" jdbcType="VARCHAR" />
+    <result column="userName" property="username" jdbcType="VARCHAR" />
+    <result column="movieID" property="movieid" jdbcType="VARCHAR" />
+    <result column="movieName" property="moviename" jdbcType="VARCHAR" />
+    <result column="moviePictureURL" property="moviepictureurl" jdbcType="VARCHAR" />
+    <result column="movieScore" property="moviescore" jdbcType="DOUBLE" />
+    <result column="movieURL" property="movieurl" jdbcType="VARCHAR" />
+    <result column="movieWatch" property="moviewatch" jdbcType="INTEGER" />
+    <result column="movieUpdateDate" property="movieupdatedate" jdbcType="VARCHAR" />
+    <result column="movieLike" property="movielike" jdbcType="INTEGER" />
+    <result column="movieType" property="movietype" jdbcType="VARCHAR" />
+    <result column="movieIntroduction" property="movieintroduction" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.bean.model.UserMovie" >
+    insert into user_movie (userID, userName, movieID, 
+      movieName, moviePictureURL, movieScore, 
+      movieURL, movieWatch, movieUpdateDate, 
+      movieLike, movieType, movieIntroduction
+      )
+    values (#{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{movieid,jdbcType=VARCHAR}, 
+      #{moviename,jdbcType=VARCHAR}, #{moviepictureurl,jdbcType=VARCHAR}, #{moviescore,jdbcType=DOUBLE}, 
+      #{movieurl,jdbcType=VARCHAR}, #{moviewatch,jdbcType=INTEGER}, #{movieupdatedate,jdbcType=VARCHAR}, 
+      #{movielike,jdbcType=INTEGER}, #{movietype,jdbcType=VARCHAR}, #{movieintroduction,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.model.UserMovie" >
+    insert into user_movie
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="username != null" >
+        userName,
+      </if>
+      <if test="movieid != null" >
+        movieID,
+      </if>
+      <if test="moviename != null" >
+        movieName,
+      </if>
+      <if test="moviepictureurl != null" >
+        moviePictureURL,
+      </if>
+      <if test="moviescore != null" >
+        movieScore,
+      </if>
+      <if test="movieurl != null" >
+        movieURL,
+      </if>
+      <if test="moviewatch != null" >
+        movieWatch,
+      </if>
+      <if test="movieupdatedate != null" >
+        movieUpdateDate,
+      </if>
+      <if test="movielike != null" >
+        movieLike,
+      </if>
+      <if test="movietype != null" >
+        movieType,
+      </if>
+      <if test="movieintroduction != null" >
+        movieIntroduction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="movieid != null" >
+        #{movieid,jdbcType=VARCHAR},
+      </if>
+      <if test="moviename != null" >
+        #{moviename,jdbcType=VARCHAR},
+      </if>
+      <if test="moviepictureurl != null" >
+        #{moviepictureurl,jdbcType=VARCHAR},
+      </if>
+      <if test="moviescore != null" >
+        #{moviescore,jdbcType=DOUBLE},
+      </if>
+      <if test="movieurl != null" >
+        #{movieurl,jdbcType=VARCHAR},
+      </if>
+      <if test="moviewatch != null" >
+        #{moviewatch,jdbcType=INTEGER},
+      </if>
+      <if test="movieupdatedate != null" >
+        #{movieupdatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="movielike != null" >
+        #{movielike,jdbcType=INTEGER},
+      </if>
+      <if test="movietype != null" >
+        #{movietype,jdbcType=VARCHAR},
+      </if>
+      <if test="movieintroduction != null" >
+        #{movieintroduction,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

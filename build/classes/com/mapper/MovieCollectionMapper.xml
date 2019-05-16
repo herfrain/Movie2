@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.bean.dao.MovieCollectionMapper">
+
+	<select id="selectMovieCollectionsById" parameterType="hashmap" resultType="com.bean.model.MovieCollection">
+		select * from movie_collections where userID = #{userID} limit #{before},#{after}
+	</select>
+	
+	<delete id="delectMovieCollection" parameterType="hashmap" >
+		delete from collections where movieID = #{movieID} and userID = #{userID}
+	</delete>
+	
+	<insert id="insertMovieCollection" parameterType="com.bean.model.MovieCollection">
+		insert into collections values (#{collectionsID},#{userID},#{movieID},#{saveTime})
+	</insert>
+	
+	<select id="queryTotalCollectionCount" parameterType="String" resultType="Integer">
+		select count(*) from collections where userID = #{userID}
+	</select>
+	
+</mapper>

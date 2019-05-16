@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bean.dao.CommentLikeMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.model.CommentLike" >
+    <id column="commentsLikeID" property="commentslikeid" jdbcType="VARCHAR" />
+    <result column="commentsID" property="commentsid" jdbcType="VARCHAR" />
+    <result column="userID" property="userid" jdbcType="VARCHAR" />
+    <result column="ClikeORnot" property="clikeornot" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commentsLikeID, commentsID, userID, ClikeORnot
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from commentslike
+    where commentsLikeID = #{commentslikeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from commentslike
+    where commentsLikeID = #{commentslikeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.model.CommentLike" >
+    insert into commentslike (commentsLikeID, commentsID, userID, 
+      ClikeORnot)
+    values (#{commentslikeid,jdbcType=VARCHAR}, #{commentsid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{clikeornot,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.model.CommentLike" >
+    insert into commentslike
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentslikeid != null" >
+        commentsLikeID,
+      </if>
+      <if test="commentsid != null" >
+        commentsID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="clikeornot != null" >
+        ClikeORnot,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentslikeid != null" >
+        #{commentslikeid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentsid != null" >
+        #{commentsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="clikeornot != null" >
+        #{clikeornot,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.model.CommentLike" >
+    update commentslike
+    <set >
+      <if test="commentsid != null" >
+        commentsID = #{commentsid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="clikeornot != null" >
+        ClikeORnot = #{clikeornot,jdbcType=BIT},
+      </if>
+    </set>
+    where commentsLikeID = #{commentslikeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.model.CommentLike" >
+    update commentslike
+    set commentsID = #{commentsid,jdbcType=VARCHAR},
+      userID = #{userid,jdbcType=VARCHAR},
+      ClikeORnot = #{clikeornot,jdbcType=BIT}
+    where commentsLikeID = #{commentslikeid,jdbcType=VARCHAR}
+  </update>
+</mapper>

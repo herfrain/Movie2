@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.bean.dao.MovieDetailMapper">
+
+
+	<!-- 通过ID查询一个影片详情 -->
+	<select id="selectMovieDetailById" parameterType="String" resultType="com.bean.model.MovieDetail">
+		select * from user_movie where movieID = #{id}
+	</select>
+	
+	
+	<select id="selectMovieCommentsById" parameterType="String" resultType="com.bean.model.MovieComment">
+		select * from user_comments where movieID = #{id}
+	</select>
+	
+	<select id="selectCommentCountById" parameterType="String" resultType="Integer">
+		select count(*) from comments where movieID = #{id}
+	</select>
+	
+	<select id="queryCollection" parameterType="hashmap" resultType="Integer">
+		select count(*) from collections where movieID = #{movieID} and userID = #{userID}
+	</select>
+	
+	
+	<insert id="insertComment" parameterType="com.bean.model.Comment">
+		insert into comments values (#{commentsid},#{movieid},#{userid},#{commentsdetails},#{commentstime},#{commentslike});
+	</insert>
+</mapper>

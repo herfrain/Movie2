@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bean.dao.LongCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.model.LongComment" >
+    <id column="longcommentsID" property="longcommentsid" jdbcType="VARCHAR" />
+    <result column="movieID" property="movieid" jdbcType="VARCHAR" />
+    <result column="userID" property="userid" jdbcType="VARCHAR" />
+    <result column="longcommentsHeading" property="longcommentsheading" jdbcType="VARCHAR" />
+    <result column="longcommentsDetails" property="longcommentsdetails" jdbcType="VARCHAR" />
+    <result column="longcommentsTime" property="longcommentstime" jdbcType="TIMESTAMP" />
+    <result column="longcommentsLike" property="longcommentslike" jdbcType="INTEGER" />
+    <result column="movieScore" property="moviescore" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    longcommentsID, movieID, userID, longcommentsHeading, longcommentsDetails, longcommentsTime, 
+    longcommentsLike, movieScore
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from longcomments
+    where longcommentsID = #{longcommentsid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from longcomments
+    where longcommentsID = #{longcommentsid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.model.LongComment" >
+    insert into longcomments (longcommentsID, movieID, userID, 
+      longcommentsHeading, longcommentsDetails, 
+      longcommentsTime, longcommentsLike, movieScore
+      )
+    values (#{longcommentsid,jdbcType=VARCHAR}, #{movieid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, 
+      #{longcommentsheading,jdbcType=VARCHAR}, #{longcommentsdetails,jdbcType=VARCHAR}, 
+      #{longcommentstime,jdbcType=TIMESTAMP}, #{longcommentslike,jdbcType=INTEGER}, #{moviescore,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.model.LongComment" >
+    insert into longcomments
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="longcommentsid != null" >
+        longcommentsID,
+      </if>
+      <if test="movieid != null" >
+        movieID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="longcommentsheading != null" >
+        longcommentsHeading,
+      </if>
+      <if test="longcommentsdetails != null" >
+        longcommentsDetails,
+      </if>
+      <if test="longcommentstime != null" >
+        longcommentsTime,
+      </if>
+      <if test="longcommentslike != null" >
+        longcommentsLike,
+      </if>
+      <if test="moviescore != null" >
+        movieScore,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="longcommentsid != null" >
+        #{longcommentsid,jdbcType=VARCHAR},
+      </if>
+      <if test="movieid != null" >
+        #{movieid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="longcommentsheading != null" >
+        #{longcommentsheading,jdbcType=VARCHAR},
+      </if>
+      <if test="longcommentsdetails != null" >
+        #{longcommentsdetails,jdbcType=VARCHAR},
+      </if>
+      <if test="longcommentstime != null" >
+        #{longcommentstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longcommentslike != null" >
+        #{longcommentslike,jdbcType=INTEGER},
+      </if>
+      <if test="moviescore != null" >
+        #{moviescore,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.model.LongComment" >
+    update longcomments
+    <set >
+      <if test="movieid != null" >
+        movieID = #{movieid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="longcommentsheading != null" >
+        longcommentsHeading = #{longcommentsheading,jdbcType=VARCHAR},
+      </if>
+      <if test="longcommentsdetails != null" >
+        longcommentsDetails = #{longcommentsdetails,jdbcType=VARCHAR},
+      </if>
+      <if test="longcommentstime != null" >
+        longcommentsTime = #{longcommentstime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longcommentslike != null" >
+        longcommentsLike = #{longcommentslike,jdbcType=INTEGER},
+      </if>
+      <if test="moviescore != null" >
+        movieScore = #{moviescore,jdbcType=INTEGER},
+      </if>
+    </set>
+    where longcommentsID = #{longcommentsid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.model.LongComment" >
+    update longcomments
+    set movieID = #{movieid,jdbcType=VARCHAR},
+      userID = #{userid,jdbcType=VARCHAR},
+      longcommentsHeading = #{longcommentsheading,jdbcType=VARCHAR},
+      longcommentsDetails = #{longcommentsdetails,jdbcType=VARCHAR},
+      longcommentsTime = #{longcommentstime,jdbcType=TIMESTAMP},
+      longcommentsLike = #{longcommentslike,jdbcType=INTEGER},
+      movieScore = #{moviescore,jdbcType=INTEGER}
+    where longcommentsID = #{longcommentsid,jdbcType=VARCHAR}
+  </update>
+</mapper>

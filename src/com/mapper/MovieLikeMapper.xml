@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bean.dao.MovieLikeMapper" >
+  <resultMap id="BaseResultMap" type="com.bean.model.MovieLike" >
+    <id column="movieLikeID" property="movielikeid" jdbcType="VARCHAR" />
+    <result column="userID" property="userid" jdbcType="VARCHAR" />
+    <result column="movieID" property="movieid" jdbcType="VARCHAR" />
+    <result column="ifMovieLike" property="ifmovielike" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    movieLikeID, userID, movieID, ifMovieLike
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from movielike
+    where movieLikeID = #{movielikeid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from movielike
+    where movieLikeID = #{movielikeid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.bean.model.MovieLike" >
+    insert into movielike (movieLikeID, userID, movieID, 
+      ifMovieLike)
+    values (#{movielikeid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{movieid,jdbcType=VARCHAR}, 
+      #{ifmovielike,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bean.model.MovieLike" >
+    insert into movielike
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="movielikeid != null" >
+        movieLikeID,
+      </if>
+      <if test="userid != null" >
+        userID,
+      </if>
+      <if test="movieid != null" >
+        movieID,
+      </if>
+      <if test="ifmovielike != null" >
+        ifMovieLike,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="movielikeid != null" >
+        #{movielikeid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="movieid != null" >
+        #{movieid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifmovielike != null" >
+        #{ifmovielike,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bean.model.MovieLike" >
+    update movielike
+    <set >
+      <if test="userid != null" >
+        userID = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="movieid != null" >
+        movieID = #{movieid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifmovielike != null" >
+        ifMovieLike = #{ifmovielike,jdbcType=BIT},
+      </if>
+    </set>
+    where movieLikeID = #{movielikeid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bean.model.MovieLike" >
+    update movielike
+    set userID = #{userid,jdbcType=VARCHAR},
+      movieID = #{movieid,jdbcType=VARCHAR},
+      ifMovieLike = #{ifmovielike,jdbcType=BIT}
+    where movieLikeID = #{movielikeid,jdbcType=VARCHAR}
+  </update>
+</mapper>
